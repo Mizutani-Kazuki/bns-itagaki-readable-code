@@ -54,6 +54,11 @@ def main(args):
     """
     単語情報の出力
     入力ファイルから単語情報を読み込んでターミナル上に出力
+
+    Parameters
+    ----------
+    args: str
+        コマンドで入力された引数
     """
     words_list = make_word_list(INPUT_DICTIONARY_DATA_PATH)
     if len(args) >= 2: # IDの指定がある場合
