@@ -29,7 +29,7 @@ def make_word_list(file_path):
     return words_list
 
 
-def output_words(words_list, id=None):
+def output_user_and_words(words_list, user_name, id=None):
     """
     取得した単語情報の出力
     
@@ -37,9 +37,12 @@ def output_words(words_list, id=None):
     ----------
     words_list: str
         CSVファイルのPath
+    user_name: str
+        ユーザー名
     id: int (default None)
         単語ID
     """
+    print("ユーザー名:", user_name)
     for index, word_info in enumerate(words_list):
         # リストの添え字+1をIDとして出力する
         current_id = index + 1
@@ -48,6 +51,24 @@ def output_words(words_list, id=None):
                 print(current_id, ': ', word_info[0], sep='')
         else: # 引数が0以外のときは一致するIDの単語のみ出力
             print(current_id, ': ', word_info[0], sep='')
+
+
+def check_args(args):
+    """
+    コマンドから必要な情報を抜き出す関数
+
+    Parameters
+    ----------
+    args: str
+        コマンドで入力された引数
+    Returns
+    -------
+    ユーザー名と単語IDを出力する。単語IDが入力されていなければユーザー名だけ出力
+    """
+    if len(args) >= 3:
+        return args[1], int(args[2])
+    else:
+        return args[1], None
 
 
 def main(args):
@@ -60,12 +81,9 @@ def main(args):
     args: str
         コマンドで入力された引数
     """
+    user_name, word_id = check_args(args)
     words_list = make_word_list(INPUT_DICTIONARY_DATA_PATH)
-    if len(args) >= 2: # IDの指定がある場合
-        if args[1].isdigit(): # IDが数字で入力されているかどうか判定
-            output_words(words_list, id=int(args[1]))
-    else: # IDの指定がない場合
-        output_words(words_list)
+    output_user_and_words(words_list, user_name, word_id)
 
 
 if __name__ == '__main__':
