@@ -41,31 +41,26 @@ def output_words(words_list, id=None):
         単語ID
     """
     for index, word_info in enumerate(words_list):
+        # リストの添え字+1をIDとして出力する
         current_id = index + 1
-        if id <= 0: # 引数が0のときはすべての単語情報を出力
-            # リストの添え字+1をIDとして出力する
-            print(current_id, ': ', word_info[0], sep='')
-        else: # 引数が0以外のときは一致するIDの単語のみ出力
+        if id: # 引数が0のときはすべての単語情報を出力
             if current_id == id:
                 print(current_id, ': ', word_info[0], sep='')
+        else: # 引数が0以外のときは一致するIDの単語のみ出力
+            print(current_id, ': ', word_info[0], sep='')
 
 
-def main(target_id=None):
+def main(args):
     """
     単語情報の出力
     入力ファイルから単語情報を読み込んでターミナル上に出力
     """
     words_list = make_word_list(INPUT_DICTIONARY_DATA_PATH)
-
-    # 取得した単語情報の出力
-    for index, word_info in enumerate(words_list):
-        # リストの添え字+1をIDとして出力する
-        current_id = index + 1
-        if target_id: # 引数が0のときはすべての単語情報を出力
-            if current_id == target_id:
-                print(current_id, ': ', word_info[0], sep='')
-        else: # 引数が0以外のときは一致するIDの単語のみ出力
-            print(current_id, ': ', word_info[0], sep='')
+    if len(args) >= 2: # IDの指定がある場合
+        if args[1].isdigit(): # IDが数字で入力されているかどうか判定
+            output_words(words_list, id=int(args[1]))
+    else: # IDの指定がない場合
+        output_words(words_list)
 
 
 if __name__ == '__main__':
@@ -73,8 +68,4 @@ if __name__ == '__main__':
     main関数の実行
     """
     args = sys.argv # コマンドライン引数を取得
-    if len(args) >= 2: # IDの指定がある場合
-        if args[1].isdigit(): # IDが数字で入力されているかどうか判定
-            main(int(args[1]))
-    else: # IDの指定がない場合
-        main()
+    main(args)
