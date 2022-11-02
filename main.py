@@ -12,7 +12,7 @@ def main():
         # 入力ファイルのテキストを1行ずつrowに格納して処理
         for row in input_file:
             # 入力ファイルはcsvを想定しているので','区切りで取り出す
-            word_list = row.split(',')
+            word_list = row.strip().split(',')
             # 入力ファイルから読み込んだ単語を画面に出力
             print(word_list[0])
 
