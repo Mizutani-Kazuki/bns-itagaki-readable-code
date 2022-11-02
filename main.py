@@ -18,7 +18,7 @@ def main(target_id):
         for row in input_file:
             # 入力ファイルはcsvを想定しているので','区切りで取り出す
             word_info = row.strip().split(',')
-            # 入力ファイルから読み込んだ単語をリストに格納
+            # 入力ファイルから読み込んだ単語と読み仮名をリストに格納
             words_list.append(word_info)
 
     # 取得した単語情報の出力
